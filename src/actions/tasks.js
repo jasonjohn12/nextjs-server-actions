@@ -21,10 +21,13 @@ export async function createTask(data) {
 
 export async function getTasks() {
   const session = await getServerSession(options);
-
+  console.log("my session", session);
   return await prisma.task.findMany({
     where: {
-      userId: session.user.id,
+      userId: session?.user?.id,
+    },
+    orderBy: {
+      createdAt: "desc",
     },
   });
 }

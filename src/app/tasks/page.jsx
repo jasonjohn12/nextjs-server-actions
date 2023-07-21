@@ -1,18 +1,13 @@
 import { prisma } from "@/db";
 
-import { TodoItem } from "@/components/TodoItem";
+import { TodoItem } from "@/app/components/TodoItem";
 import { redirect, useServerInsertedHTML } from "next/navigation";
 import { Suspense } from "react";
 import Loading from "./loading";
-import TaskForm from "@/components/TaskForm";
+import TaskForm from "@/app/components/TaskForm";
 import { getTasks } from "@/actions/tasks";
-// function getTodos(userId) {
-//   return prisma.task.findMany({
-//     where: {
-//       userId: userId,
-//     },
-//   });
-// }
+import { getServerSession } from "next-auth";
+import { options } from "../api/auth/[...nextauth]/options";
 
 async function toggleTodo(id, complete) {
   "use server";
@@ -20,7 +15,10 @@ async function toggleTodo(id, complete) {
 }
 export default async function Home() {
   // const session = await getServerSession(options);
-  // const todos = await getTodos(session?.user?.id);
+  // if (!session?.user?.id) {
+  //   redirect("/");
+  // }
+
   const todos = await getTasks();
   return (
     <Suspense fallback={<Loading />}>

@@ -8,7 +8,7 @@ const Navbar = (props: Props) => {
     <header className="flex justify-between items-center mb-12">
       <h1 className="text-2xl">
         <Link className=" text-slate-300 px-2 py-1" href={"/"}>
-          TODOS
+          Task
         </Link>
       </h1>
       <Profile />
